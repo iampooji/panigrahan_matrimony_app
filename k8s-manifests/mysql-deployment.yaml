@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: mysql
+  namespace: panigrahan
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: mysql
+
+  template:
+    metadata:
+      labels:
+        app: mysql
+
+    spec:
+      containers:
+
+      - name: mysql
+
+        image: mysql:8
+
+        ports:
+        - containerPort: 3306
+
+        env:
+
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_ROOT_PASSWORD
+
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_DATABASE
+
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_USER
+
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_PASSWORD
+
+        volumeMounts:
+
+        - name: mysql-storage
+          mountPath: /var/lib/mysql
+
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+
+        readinessProbe:
+          tcpSocket:
+            port: 3306
+
+          initialDelaySeconds: 20
+          periodSeconds: 10
+
+        livenessProbe:
+          tcpSocket:
+            port: 3306
+
+          initialDelaySeconds: 40
+          periodSeconds: 15
+
+      volumes:
+
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: mysql-service
+  namespace: panigrahan
+
+spec:
+  selector:
+    app: mysql
+
+  ports:
+  - port: 3306
+    targetPort: 3306
+
+  type: ClusterIP
