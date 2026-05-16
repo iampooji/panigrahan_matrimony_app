@@ -1,0 +1,54 @@
+.family-section {
+  margin-top: 2rem;
+}
+
+.family-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.family-list {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.family-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.family-row:last-child {
+  border-bottom: none;
+}
+
+.family-name {
+  font-weight: 500;
+}
+
+.family-relation {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.family-actions button {
+  margin-left: 0.5rem;
+}
+
+.family-form {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #f9fafb;
+}
+
+.family-form-title {
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}

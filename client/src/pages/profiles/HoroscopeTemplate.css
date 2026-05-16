@@ -1,0 +1,250 @@
+/* Global Page Setup */
+body {
+  font-family: "Arial Narrow", Arial, sans-serif;
+  margin: 0;
+}
+
+/* Main Page */
+.page {
+  /* width: 800px; */
+  /* background-color: white; */
+  /* border: 2px solid #000; */
+  padding: 0;
+  position: relative;
+  /* box-sizing: border-box; */
+}
+
+/* Utility Classes */
+.text-red {
+  color: #d32f2f;
+}
+
+.text-blue {
+  color: #1a237e;
+}
+
+.text-green {
+  color: #2e7d32;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.center {
+  text-align: center;
+}
+
+/* Top Header Row */
+.top-row {
+  display: flex;
+  border-bottom: 1px solid #000;
+  height: 35px;
+}
+
+.top-nc,
+.top-om,
+.top-se {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c8e6c9;
+  border-right: 1px solid #000;
+}
+
+.top-nc {
+  width: 10%;
+}
+
+.top-om {
+  width: 60%;
+  font-size: 14px;
+}
+
+.top-se {
+  width: 10%;
+}
+
+.top-code {
+  width: 20%;
+  background: #1a237e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-size: 9px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Section Headers */
+.pink-header {
+  width: 68%;
+  background: #f8bbd0;
+  padding: 5px;
+  text-align: center;
+  border-bottom: 1px solid #000;
+}
+
+.yellow-banner {
+  width: 68%;
+  background: #ffeb3b;
+  color: red;
+  text-align: center;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 18px;
+  border-bottom: 1px solid #000;
+}
+
+/* Content Layout */
+.flex-container {
+  display: flex;
+}
+
+.left-side {
+  width: 68%;
+  border-right: 1px solid #000;
+}
+
+.right-side {
+  margin-top: -100px;
+  width: 32%;
+  padding: 3px;
+  text-align: center;
+}
+
+
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  border: 1px solid #000;
+  padding: 3px;
+  font-size: 12px;
+  height: 22px;
+}
+
+.label-bg {
+  background: #e0f2f1;
+  color: #d32f2f;
+  font-weight: bold;
+  width: 22%;
+}
+
+.data-bg {
+  color: #1a237e;
+  font-weight: bold;
+  width: 28%;
+}
+
+/* Name Strip */
+.name-strip {
+  background: #fff;
+  border-bottom: 1px solid #000;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+}
+
+/* Astro Section */
+.astro-wrapper {
+  display: flex;
+  border-bottom: 1px solid #000;
+}
+
+.vertical-tag {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  background: #e0f2f1;
+  color: #d32f2f;
+  font-weight: bold;
+  padding: 5px;
+  border-right: 1px solid #000;
+  font-size: 10px;
+}
+
+.kundali-grid {
+  display: grid;
+  /* grid-template-columns: repeat(4, 1fr); */
+  width: 60%;
+}
+
+.k-cell {
+  border: 0.5px solid #000;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.kundali-img {
+  width: 200%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.email-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg); /* makes text readable top-to-bottom */
+  padding: 3px;
+  font-weight: bold;
+  border-right: 1px solid #000;
+}
+
+/* Photo Frames */
+.frame {
+  border: 4px double #1a237e;
+  margin-bottom: 5px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #000;
+  object-fit: contain;
+  display: block;
+  
+}
+
+/* Address Section */
+.address-box {
+  background: #fffde7;
+  padding: 10px;
+  border-top: 2px solid #000;
+  display: flex;
+}
+
+/* ================= BOTTOM SECTIONS ================= */
+/* dashed utility line */
+.dot-line {
+  border-top: 1px dashed #000;
+  margin: 5px 0;
+}
+
+/* Footer */
+.footer-note {
+  font-size: 10px;
+  text-align: center;
+  padding: 5px;
+  border-top: 1px solid #000;
+  background: #fff;
+}
+
+/* Utility Lines */
+.dot-line {
+  border-top: 1px dashed #000;
+  margin: 5px 0;
+}
