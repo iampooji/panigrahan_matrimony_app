@@ -24,21 +24,120 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        
+        stage('Verify Workspace') {
+
             steps {
-                sh 'npm install'
+
+                sh '''
+                    echo "================ WORKSPACE ================="
+
+                    pwd
+
+                    echo "============================================"
+
+                    ls -la
+
+                    echo "============================================"
+
+                    echo "CLIENT FILES"
+
+                    find client -type f | head -50 || true
+
+                    echo "============================================"
+
+                    echo "SERVER FILES"
+
+                    find server -type f | head -50 || true
+                '''
             }
         }
 
-        stage('SonarQube Analysis') {
+        /* ===================================================== */
+        /* STAGE 3 — VERIFY NODEJS                               */
+        /* ===================================================== */
+
+        stage('Verify NodeJS') {
+
             steps {
+
+                sh '''
+                    echo "================ NODE VERSION ================"
+
+                    node -v
+
+                    echo "================ NPM VERSION ================="
+
+                    npm -v
+                '''
+            }
+        }
+
+        /* ===================================================== */
+        /* STAGE 4 — INSTALL FRONTEND DEPENDENCIES               */
+        /* ===================================================== */
+
+        stage('Install Frontend Dependencies') {
+
+            steps {
+
+                dir('client') {
+
+                    sh 'npm install'
+                }
+            }
+        }
+
+        /* ===================================================== */
+        /* STAGE 5 — INSTALL BACKEND DEPENDENCIES                */
+        /* ===================================================== */
+
+        stage('Install Backend Dependencies') {
+
+            steps {
+
+                dir('server') {
+
+                    sh 'npm install'
+                }
+            }
+        }
+
+        // /* ===================================================== */
+        // /* STAGE 6 — SONARQUBE STATIC ANALYSIS                   */
+        // /* ===================================================== */
+
+        stage('SonarQube Scan') {
+
+            steps {
+
                 withSonarQubeEnv('sonar') {
-                    sh '''
-                    $SCANNER_HOME/bin/sonar-scanner \
-                    -Dsonar.projectKey=panigrahan_matrimony_app \
-                    -Dsonar.projectName=panigrahan_matrimony_app \
-                    -Dsonar.sources=.
-                    '''
+
+                    sh """
+                        ${SCANNER_HOME}/bin/sonar-scanner \
+                        -Dsonar.projectKey= panigrahan_matrimony_app \
+                        -Dsonar.projectName= panigrahan_matrimony_app \
+                        
+                        -Dsonar.sources=client/src,server \
+                        -Dsonar.sourceEncoding=UTF-8 \
+                        -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/** \
+                        -Dsonar.verbose=true
+                    """
+                }
+            }
+        }
+
+        // /* ===================================================== */
+        // /* STAGE 7 — SONAR QUALITY GATE                          */
+        // /* ===================================================== */
+
+        stage('Quality Gate') {
+
+            steps {
+
+                timeout(time: 10, unit: 'MINUTES') {
+
+                    waitForQualityGate abortPipeline: false
                 }
             }
         }
