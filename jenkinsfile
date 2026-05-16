@@ -208,7 +208,6 @@ pipeline {
                         -Dsonar.sources=client/src,server \
                         -Dsonar.sourceEncoding=UTF-8 \
                         -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**,**/coverage/** \
-                        -Dsonar.verbose=true
                     """
                 }
             }
