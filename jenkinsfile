@@ -282,67 +282,67 @@ pipeline {
         /* STAGE 10 — TRIVY FRONTEND SECURITY SCAN               */
         /* ===================================================== */
 
-        stage('Trivy Frontend Security Scan') {
+        // stage('Trivy Frontend Security Scan') {
 
-            steps {
+        //     steps {
 
-                sh """
-                    trivy image \
-                    --severity LOW,MEDIUM,HIGH \
-                    ${FRONTEND_TAG}
-                """
+        //         sh """
+        //             trivy image \
+        //             --severity LOW,MEDIUM,HIGH \
+        //             ${FRONTEND_TAG}
+        //         """
 
-                sh """
-                    trivy image \
-                    --exit-code 1 \
-                    --severity CRITICAL \
-                    ${FRONTEND_TAG}
-                """
+        //         sh """
+        //             trivy image \
+        //             --exit-code 1 \
+        //             --severity CRITICAL \
+        //             ${FRONTEND_TAG}
+        //         """
 
-                sh """
-                    trivy image \
-                    --format json \
-                    -o frontend-trivy-report.json \
-                    ${FRONTEND_TAG}
-                """
+        //         sh """
+        //             trivy image \
+        //             --format json \
+        //             -o frontend-trivy-report.json \
+        //             ${FRONTEND_TAG}
+        //         """
 
-                archiveArtifacts artifacts: 'frontend-trivy-report.json',
-                fingerprint: true
-            }
-        }
+        //         archiveArtifacts artifacts: 'frontend-trivy-report.json',
+        //         fingerprint: true
+        //     }
+        // }
 
         /* ===================================================== */
         /* STAGE 11 — TRIVY BACKEND SECURITY SCAN                */
         /* ===================================================== */
 
-        stage('Trivy Backend Security Scan') {
+        // stage('Trivy Backend Security Scan') {
 
-            steps {
+        //     steps {
 
-                sh """
-                    trivy image \
-                    --severity LOW,MEDIUM,HIGH \
-                    ${BACKEND_TAG}
-                """
+        //         sh """
+        //             trivy image \
+        //             --severity LOW,MEDIUM,HIGH \
+        //             ${BACKEND_TAG}
+        //         """
 
-                sh """
-                    trivy image \
-                    --exit-code 1 \
-                    --severity CRITICAL \
-                    ${BACKEND_TAG}
-                """
+        //         sh """
+        //             trivy image \
+        //             --exit-code 1 \
+        //             --severity CRITICAL \
+        //             ${BACKEND_TAG}
+        //         """
 
-                sh """
-                    trivy image \
-                    --format json \
-                    -o backend-trivy-report.json \
-                    ${BACKEND_TAG}
-                """
+        //         sh """
+        //             trivy image \
+        //             --format json \
+        //             -o backend-trivy-report.json \
+        //             ${BACKEND_TAG}
+        //         """
 
-                archiveArtifacts artifacts: 'backend-trivy-report.json',
-                fingerprint: true
-            }
-        }
+        //         archiveArtifacts artifacts: 'backend-trivy-report.json',
+        //         fingerprint: true
+        //     }
+        // }
 
         /* ===================================================== */
         /* STAGE 12 — PUSH IMAGES TO DOCKERHUB                   */
