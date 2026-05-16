@@ -1,0 +1,92 @@
+pipeline {
+    agent any
+
+    tools {
+        jdk 'jdk21'
+        nodejs 'node20'
+    }
+
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
+        stage('Checkout from Git') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/iampooji/panigrahan_matrimony_app.git'
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonar') {
+                    sh '''
+                        $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectKey=panigrahan_matrimony_app \
+                        -Dsonar.projectName=panigrahan_matrimony_app \
+                        -Dsonar.sources=.
+                    '''
+                }
+            }
+        }
+
+        // stage('Docker Build and Push') {
+        //     steps {
+        //         withDockerRegistry(credentialsId: 'docker-credentials', url: '') {
+        //             sh '''
+        //                 docker build -t swiggy:latest . 
+        //                 docker tag swiggy:latest iampooji/swiggy:latest
+        //                 docker push iampooji/swiggy:latest
+
+        //             '''
+        //         }
+        //     }
+        // }
+
+    //     stage('Deploy to Kubernetes') {
+    //         steps {
+    //             dir('k3s-manifest') {
+    //                 sh '''
+    //                     export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+
+    //                     kubectl apply -f deployment.yml
+    //                     kubectl apply -f service.yml
+    //                 '''
+    //             }
+    //         }
+    //     }
+
+    // }
+
+    post {
+        // always {
+        //     sh '''
+        //     echo "Removing Swiggy Docker images..."
+
+        //     docker images "swiggy*" -q | xargs -r docker rmi -f || true
+
+        //     docker image prune -f || true
+        //     docker builder prune -f || true
+        //     '''
+        // }
+        success {
+            echo 'Panigrahan Web App pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check Console Output.'
+        }
+    }
+}
